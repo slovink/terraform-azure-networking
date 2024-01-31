@@ -29,29 +29,10 @@ variable "label_order" {
   default     = []
   description = "Label order, e.g. `name`,`application`."
 }
-
-variable "attributes" {
-  type        = list(any)
-  default     = []
-  description = "Additional attributes (e.g. `1`)."
-}
-
-variable "delimiter" {
-  type        = string
-  default     = "-"
-  description = "Delimiter to be used between `organization`, `environment`, `name` and `attributes`."
-}
-
-variable "tags" {
-  type        = map(any)
-  default     = {}
-  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)."
-}
-
 variable "managedby" {
   type        = string
-  default     = ""
-  description = ""
+  default     = "contact@slovink.com"
+  description = "managedby ,eg slovink,"
 }
 
 variable "enable" {
@@ -129,6 +110,7 @@ variable "subnet_enforce_private_link_service_network_policies" {
 }
 
 variable "private_delegation" {
+  type    = map(string)
   default = {}
 }
 

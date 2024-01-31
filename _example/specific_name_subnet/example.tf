@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 module "resource_group" {
-  source  = ""
+  source = "git::git@github.com:slovink/terraform-azure-resource-group.git?ref=1.0.0"
 
   name        = "app"
   environment = "test"
@@ -12,7 +12,7 @@ module "resource_group" {
 }
 
 module "vnet" {
-  source = "../.."
+  source = "git::git@github.com:slovink/terraform-azure-vnet.git?ref=1.0.0"
 
   name                = "app"
   environment         = "test"
