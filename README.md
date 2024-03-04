@@ -12,9 +12,9 @@
 <p align="center">
 
 <a href="https://www.terraform.io">
-  <img src="https://img.shields.io/badge/Terraform-v1.1.7-green" alt="Terraform">
+  <img src="https://img.shields.io/badge/Terraform-v1.7.4-green" alt="Terraform">
 </a>
-<a href="LICENSE.md">
+<a href="https://github.com/slovink/terraform-azure-networking/blob/master/LICENSE">
   <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
 </a>
 
@@ -29,9 +29,6 @@ This module has a few dependencies:
 
 
 
-
-
-
 ## Examples
 
 
@@ -42,8 +39,7 @@ This module has a few dependencies:
 Here is an example of how you can use this module in your inventory structure:
   ```hcl
 module "vnet" {
-  source = "git::git@github.com:slovink/terraform-azure-vnet.git"
-
+  source              = "git::git@github.com:slovink/terraform-azure-vnet.git?ref=1.0.0"
   name                = "app"
   environment         = "test"
   label_order         = ["name", "environment"]
@@ -70,13 +66,38 @@ module "vnet" {
 }
   ```
 
+## Specific name subnet
+Here is an example of how you can use this module in your inventory structure:
+```hcl
+module "vnet" {
+  source              = "git::git@github.com:slovink/terraform-azure-vnet.git?ref=1.0.0"
+  name                = "app"
+  environment         = "test"
+  label_order         = ["name", "environment"]
+  resource_group_name = module.resource_group.resource_group_name
+  location            = module.resource_group.resource_group_location
+  address_space       = "10.0.0.0/16"
+  enable_ddos_pp      = false
+
+  #subnet
+  specific_name_subnet          = true
+  specific_subnet_names         = "GatewaySubnet"
+  subnet_prefixes               = ["10.0.1.0/24"]
+  disable_bgp_route_propagation = false
+
+  # routes
+  enabled_route_table = false
+
+}
+```
+
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/slovink/terraform-azure-networking/blob/krishan/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/slovink/terraform-azure-networking/blob/dev/LICENSE) file for details.
 
 
 
 ## Feedback
-If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/slovink/terraform-azure-networking), or feel free to drop us an email at [devops@slovink.com](devops@slovink.com).
+If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/slovink/terraform-azure-networking), or feel free to drop us an email at [contact@slovink.com](contact@slovink.com).
 
 If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/slovink/terraform-azure-networking)!
 
