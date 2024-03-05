@@ -1,0 +1,66 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name : Terraform AZURE NETWORKING
+
+# License of this project
+license: "MIT"
+
+# Canonical GitHub repo
+github_repo: git@github.com:slovink/terraform-azure-networking.git
+
+# Badges to display
+badges:
+  - name: "Terraform"
+    image: "https://img.shields.io/badge/Terraform-v1.7.4-green"
+    url: "https://www.terraform.io"
+  - name: "Licence"
+    image: "https://img.shields.io/badge/License-MIT-blue.svg"
+    url: "https://github.com/slovink/terraform-azure-networking/blob/master/LICENSE"
+
+#  description of this project
+description: |-
+  Terraform module to create Azure networking service resource on AZURE.
+# extra content
+include:
+  - "terraform.md"
+
+# How to use this project
+# How to use this project
+usage: |-
+  Here are some examples of how you can use this module in your inventory structure:
+  ### azure networking
+  ```hcl
+    # Basic
+   module "vnet" {
+    source = "git::git@github.com:slovink/terraform-azure-vnet.git?ref=1.0.0"
+
+    name                = "app"
+    environment         = "test"
+    label_order         = ["name", "environment"]
+    resource_group_name = module.resource_group.resource_group_name
+    location            = module.resource_group.resource_group_location
+    address_space       = "10.0.0.0/16"
+    enable_ddos_pp      = false
+
+    #subnet
+    default_name_subnet           = true
+    subnet_names                  = ["subnet1", "subnet2"]
+    subnet_prefixes               = ["10.0.1.0/24", "10.0.2.0/24"]
+    disable_bgp_route_propagation = false
+
+    # routes
+    enabled_route_table = true
+    routes = [
+    {
+      name           = "rt-test"
+      address_prefix = "0.0.0.0/0"
+      next_hop_type  = "Internet"
+    }
+   ]
+  }
+  ```
